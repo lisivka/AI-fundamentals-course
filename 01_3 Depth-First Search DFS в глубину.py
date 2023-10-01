@@ -1,3 +1,18 @@
+def print_path(grid, points=[(None, None), ]):
+    """
+    Print the grid with the path marked with asterisks.
+
+    """
+    for row in range(len(grid)):
+        for col in range(len(grid[row])):
+            if (row, col) in points:
+                dot = f"*"
+            else:
+                dot = f"{grid[row][col]}"
+            print(dot, end="  ")
+        print()
+    print()
+
 # @test_dfs
 def dfs(row, col, visited, solution_path):
     """
@@ -13,9 +28,30 @@ def dfs(row, col, visited, solution_path):
     Returns:
     bool: True if a valid path is found from the current cell to 'E', False otherwise.
     """
+    # Get the dimensions of the maze
+    num_rows = len(visited)
+    num_cols = len(visited[0])
 
+    # Check if the current cell is out of bounds or visited
+    if row < 0 or row >= num_rows or col < 0 or col >= num_cols or visited[row][col]:
+        return False
 
-    return result
+    # Mark the current cell as visited
+    visited[row][col] = True
+
+    # If 'E' is found, add the current cell to the solution path and return True
+    if maze[row][col] == 'E':
+        solution_path.append((row, col))
+        return True
+
+    # Explore the adjacent cells in a specific order (up, down, left, right)
+    directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+    for dr, dc in directions:
+        if dfs(row + dr, col + dc, visited, solution_path):
+            solution_path.append((row, col))  # Add the current cell to the solution path
+            return True
+
+    return False
 
 # @test_solve_maze
 def solve_maze(maze):
@@ -32,13 +68,29 @@ def solve_maze(maze):
 
 
     # Find the starting point
+    start_row, start_col = -1, -1
+    for i in range(len(maze)):
+        for j in range(len(maze[i])):
+            if maze[i][j] == 'S':
+                start_row, start_col = i, j
+                break
+        if start_row != -1:
+            break
 
-
+    if start_row == -1:
+        return []  # No starting point 'S' found
 
     # Initialize the visited array and solution_path list
+    num_rows = len(maze)
+    num_cols = len(maze[0])
+    visited = [[False] * num_cols for _ in range(num_rows)]
+    solution_path = []
 
-    return result
-
+    # Call DFS to find the path
+    if dfs(start_row, start_col, visited, solution_path):
+        return solution_path[::-1]  # Reverse the solution path to start from 'S'
+    else:
+        return []  # No valid path found
 
 # Example usage:
 maze = [
@@ -51,3 +103,16 @@ maze = [
 
 path = solve_maze(maze)
 print("Solution Path:", path)
+
+print_path(maze, path)
+
+# maze = [
+#     ['S', ' ', ' ', ' ', 'X', ' '],
+#     ['X', 'X', 'X', ' ', 'X', ' '],
+#     [' ', ' ', ' ', ' ', ' ', ' '],
+#     ['X', 'X', ' ', 'X', 'X', 'X'],
+#     [' ', ' ', ' ', ' ', ' ', 'E']
+# ]
+#
+# solution = solve_maze(maze)
+# print("Solution Path:", solution)

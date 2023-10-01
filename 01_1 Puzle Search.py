@@ -16,7 +16,7 @@ def print_word(grid, points=[(None, None), ]):
 
 
 # @test_search_word
-def search_word(grid, word, mode=False):
+def search_word(grid, word, view=False):
     """
     Search for a word within a grid of letters.
 
@@ -49,7 +49,7 @@ def search_word(grid, word, mode=False):
     result = False
     count = 0
     first_letter = word[0]
-    if mode == True:
+    if view == True:
         print(f"Original Grid: find word: {word}")
         print_word(grid)
 
@@ -62,7 +62,7 @@ def search_word(grid, word, mode=False):
                     if check:
                         result = True
                         count += 1
-                        if mode == True:
+                        if view == True:
                             print(f"№{count} Word: {word}, points: {points}")
                             print_word(grid, points=points)
 
@@ -70,7 +70,7 @@ def search_word(grid, word, mode=False):
 
 
 # @test_find_words
-def find_words(grid, words, mode=False):
+def find_words(grid, words, view=False):
     """
     Find words within a grid of letters.
 
@@ -86,7 +86,7 @@ def find_words(grid, words, mode=False):
     """
     result = []
     for word in words:
-        if search_word(grid, word, mode=mode):
+        if search_word(grid, word, view=view):
             result.append(word)
 
     return result
@@ -95,7 +95,7 @@ def find_words(grid, words, mode=False):
 # Example usage:
 grid = [['A', 'B', 'C', 'D'], ['E', 'F', 'G', 'O'], ['I', 'J', 'K', 'G'], ['M', 'N', 'H', 'P']]
 word_list = ["HELLO", "WORLD", "HI", "FOOD", "DOG", "GOD"]
-found_words = find_words(grid, word_list, mode=True)
+found_words = find_words(grid, word_list, view=True)
 print("Found words:", found_words)
 
 print("----------------------")
@@ -105,4 +105,4 @@ grid = [['R', 'B', 'R', 'R'],
         ['E', 'O', 'O', 'O'],
         ['I', 'C', 'C', 'C'],
         ['K', 'N', 'O', 'K']]
-print(find_words(grid, words, mode=True))
+print(find_words(grid, words, view=True))

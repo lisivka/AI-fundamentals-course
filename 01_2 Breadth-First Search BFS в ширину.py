@@ -97,7 +97,6 @@ def find_shortest_path(grid, start, target, view=False):
             if neighbor not in visited:
                 visited.add(neighbor)
                 queue.append((neighbor, path + [neighbor]))
-                # print_path(grid, path + [neighbor])
 
     return []
 
