@@ -1,12 +1,11 @@
-def grid_print(grid, points=([None, None],)):
+def print_word(grid, points=[(None, None), ]):
     """
     Print a grid of letters.
-
-"""
+    """
 
     for row in range(len(grid)):
         for col in range(len(grid[row])):
-            if [row, col] not in points and points != ([None, None],):
+            if (row, col) not in points and points != [(None, None),]:
                 dot = f"*"
             else:
                 dot = f"{grid[row][col]}"
@@ -41,7 +40,7 @@ def search_word(grid, word, mode=False):
             if not (0 <= x < len(grid) and 0 <= y < len(grid[0])) or grid[x][
                 y] != char:
                 return False, points
-            points.append([x, y])
+            points.append((x, y))
             x, y = x + dx, y + dy
             # print(f"char: {char}, x: {x}, y: {y}")
         return True, points
@@ -52,7 +51,7 @@ def search_word(grid, word, mode=False):
     first_letter = word[0]
     if mode == True:
         print(f"Original Grid: find word: {word}")
-        grid_print(grid)
+        print_word(grid)
 
     for i in range(len(grid)):
         for j in range(len(grid[0])):
@@ -65,7 +64,7 @@ def search_word(grid, word, mode=False):
                         count += 1
                         if mode == True:
                             print(f"№{count} Word: {word}, points: {points}")
-                            grid_print(grid, points=points)
+                            print_word(grid, points=points)
 
     return result
 
@@ -99,14 +98,11 @@ word_list = ["HELLO", "WORLD", "HI", "FOOD", "DOG", "GOD"]
 found_words = find_words(grid, word_list, mode=True)
 print("Found words:", found_words)
 
-print ("----------------------")
-print ("Visualization by search")
-words = ["ROCK", "IN", "OF", "OOO" ,]
+print("----------------------")
+print("Visualization by search")
+words = ["ROCK", "IN", "OF", "OOO", ]
 grid = [['R', 'B', 'R', 'R'],
         ['E', 'O', 'O', 'O'],
         ['I', 'C', 'C', 'C'],
         ['K', 'N', 'O', 'K']]
-print(find_words(grid, words, mode = True))
-
-
-
+print(find_words(grid, words, mode=True))
