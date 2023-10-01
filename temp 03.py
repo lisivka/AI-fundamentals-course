@@ -13,10 +13,26 @@ def dfs(row, col, visited, solution_path):
     Returns:
     bool: True if a valid path is found from the current cell to 'E', False otherwise.
     """
-    result = False
 
+    num_rows = len(visited)
+    num_cols = len(visited[0])
+    if row < 0 or row >= num_rows or col < 0 or col >= num_cols or visited[row][col]:
+        return False
 
-    return result
+    # Mark the current cell as visited
+    visited[row][col] = True
+
+    if maze[row][col] == 'E':
+        solution_path.add((row, col))
+        return True
+    directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+    for dr, dc in directions:
+        if dfs(row + dr, col + dc, visited, solution_path):
+            solution_path.add((row, col))
+            return True
+
+    return False
+
 
 # @test_solve_maze
 def solve_maze(maze):
@@ -31,27 +47,26 @@ def solve_maze(maze):
                    An empty list is returned if there is no valid path.
     """
 
-
-
-
-
     # Find the starting point
 
     for row in range(len(maze)):
         for col in range(len(maze[0])):
             if maze[row][col] == 'S':
                 start = (row, col)
-            # elif maze[row][col] == 'E':
-            #     end = (row, col)
+                print(f"Start: {start} ")
 
+            elif maze[row][col] == 'E':
+                end = (row, col)
+                print(f"End: {end} ")
 
     # Initialize the visited array and solution_path list
 
-    solution_path = []
     num_cols = len(maze[0])
     num_rows = len(maze)
-    visited = [ [False]*num_cols  for _ in  range(num_rows) ]
-    path = dfs(start[0], start[1], visited, solution_path)
+    visited = [[False] * num_cols for _ in range(num_rows)]
+    solution_path = set()
+    if dfs(start[0], start[1], visited, solution_path):
+        return solution_path
 
     return path
 

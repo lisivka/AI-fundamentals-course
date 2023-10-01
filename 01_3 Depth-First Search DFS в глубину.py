@@ -28,11 +28,9 @@ def dfs(row, col, visited, solution_path):
     Returns:
     bool: True if a valid path is found from the current cell to 'E', False otherwise.
     """
-    # Get the dimensions of the maze
+
     num_rows = len(visited)
     num_cols = len(visited[0])
-
-    # Check if the current cell is out of bounds or visited
     if row < 0 or row >= num_rows or col < 0 or col >= num_cols or visited[row][col]:
         return False
 
