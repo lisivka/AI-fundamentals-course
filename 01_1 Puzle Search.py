@@ -37,8 +37,7 @@ def search_word(grid, word, view=False):
     def check_cell(x, y, dx, dy):
         points = []
         for char in word:
-            if not (0 <= x < len(grid) and 0 <= y < len(grid[0])) or grid[x][
-                y] != char:
+            if not (0 <= x < len(grid) and 0 <= y < len(grid[0])) or grid[x][y] != char:
                 return False, points
             points.append((x, y))
             x, y = x + dx, y + dy
