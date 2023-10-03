@@ -1,3 +1,6 @@
+# https://levelup.gitconnected.com/mastering-tic-tac-toe-with-minimax-algorithm-3394d65fa88f
+
+
 PLAYER_X = "X"
 PLAYER_O = "O"
 EMPTY = " "
