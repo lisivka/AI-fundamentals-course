@@ -1,5 +1,5 @@
 # https://levelup.gitconnected.com/mastering-tic-tac-toe-with-minimax-algorithm-3394d65fa88f
-
+# https://gist.github.com/redwrasse/1d7b0980d5dd5ded1a59ae633c5cbc20
 
 PLAYER_X = "X"
 PLAYER_O = "O"
