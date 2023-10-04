@@ -15,57 +15,86 @@ def print_board(board):
         print("-" * 5)
 
 
+def get_player_move():
+    flag = True
+    row, col = None, None
+
+    try:
+        row = int(input("Enter the row (0-2): "))
+        col = int(input("Enter the column (0-2): "))
+    except ValueError as e:
+        print("Incorrect value. Try again.")
+        print("Possible values are 0, 1, 2.")
+        # continue
+        flag = False
+
+    except Exception as e:
+        print(f"Error.{e}")
+        # continue
+        flag = False
+
+    return flag, row, col
+
+
+def check_player_move(row, col, board):
+    if row not in range(3) or col not in range(3):
+        print(" Invalid row or column. Try again.")
+        print("Possible values are 0, 1, 2.")
+        return False
+
+    if board[row][col] != EMPTY:
+        print("Cell is not empty. Try again.")
+        return False
+
+    return True
+
+
+def check_win_draw(board):
+    if evaluate(board) == -1:
+        print_board(board)
+        print("You win!")
+        return True
+
+    if evaluate(board) == 1:
+        print_board(board)
+        print("Computer wins!")
+        return True
+
+    if evaluate(board) == 0:
+        print_board(board)
+
+    if is_full(board):
+        print_board(board)
+        print("It's a draw!")
+        return True
+
+    return False
+
+
 def play():
     board = [[EMPTY for _ in range(3)] for _ in range(3)]
     print("Lets play!")
-    print_board(board)
-
+    # print_board(board)
+    check_win_draw(board)
     while True:
-        try:
-            row = int(input("Enter the row (0-2): "))
-            col = int(input("Enter the column (0-2): "))
-        except ValueError as e:
-            print("Incorrect value. Try again.")
-            print("Possible values are 0, 1, 2.")
-            continue
-        except Exception:
-            print(f"Error.{e}")
-            continue
 
-        if row not in range(3) or col not in range(3):
-            print(" Invalid row or column. Try again.")
-            print("Possible values are 0, 1, 2.")
+        # get player move
+        correct, row, col = get_player_move()
+        if correct == False:
             continue
-
-        if board[row][col] != EMPTY:
-            print("Cell is not empty. Try again.")
+        if check_player_move(row, col, board) == False:
             continue
-
         board[row][col] = PLAYER_O
+        # if check_win_draw(board):
+        #     break
 
-        if evaluate(board) == -1:
-            print_board(board)
-            print("You win!")
-            break
-
-        if is_full(board):
-            print_board(board)
-            print("It's a draw!")
-            break
-
+        # get computer move
         best_move = get_best_move(board)
         board[best_move[0]][best_move[1]] = PLAYER_X
-
-        if evaluate(board) == 1:
-            print_board(board)
-            print("Computer wins!")
+        if check_win_draw(board):
             break
 
-        if is_full(board):
-            print("It's a draw!")
-            break
-
-        print_board(board)
+        # print_board(board)
 
 
 def is_full(board):
