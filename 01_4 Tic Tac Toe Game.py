@@ -6,8 +6,6 @@ PLAYER_O = "O"
 EMPTY = " "
 
 
-
-
 def print_board(board):
     # print(*board, sep="\n")
     # print()
@@ -45,7 +43,6 @@ def play():
 
         board[row][col] = PLAYER_O
 
-
         if evaluate(board) == -1:
             print_board(board)
             print("You win!")
@@ -68,7 +65,6 @@ def play():
             print("It's a draw!")
             break
 
-
         print_board(board)
 
 
@@ -78,6 +74,7 @@ def is_full(board):
             return False
     return True
 
+
 def get_empty_cells(board):
     empty_cells = []
     for row in range(3):
@@ -85,37 +82,6 @@ def get_empty_cells(board):
             if board[row][col] == EMPTY:
                 empty_cells.append((row, col))
     return empty_cells
-
-    def evaluate(board):
-        '''This function evaluates the current state of the board and determines the outcome of the game.
-
-        Parameters:
-            board (list): A 3x3 array representing the board state with symbols.
-
-        Returns:
-            int:
-                -1 if PLAYER_O has won.
-                1 if PLAYER_X has won.
-                0 if the game is a draw or still ongoing.
-                '''
-        # Function code here
-        pass
-
-    def evaluate(board):
-        '''This function evaluates the current state of the board and determines the outcome of the game.
-
-        Parameters:
-            board (list): A 3x3 array representing the board state with symbols.
-
-        Returns:
-            int:
-                -1 if PLAYER_O has won.
-                1 if PLAYER_X has won.
-                0 if the game is a draw or still ongoing.
-                '''
-        # Function code here
-        pass
-
 
 
 def evaluate(board):
@@ -154,8 +120,7 @@ def evaluate(board):
     if board[0][2] == board[1][1] == board[2][0] == PLAYER_O:
         return -1
 
-    return 0 #the game is a draw or still ongoing
-
+    return 0  # the game is a draw or still ongoing
 
 
 # ===============================================
@@ -211,9 +176,6 @@ def minimax(board, depth, alpha, beta, is_maximizing):
         return best_score
 
 
-
-
-
 def get_best_move(board):
     '''Returns the best move for the current board state.
 
@@ -226,7 +188,7 @@ def get_best_move(board):
     best_score = -float("inf")
     best_move = None
     for row in range(3):
-         for col in range(3):
+        for col in range(3):
             if board[row][col] == EMPTY:
                 board[row][col] = PLAYER_X
                 score = minimax(board, 0, -float("inf"), float("inf"), False)
@@ -235,9 +197,7 @@ def get_best_move(board):
                     best_score = score
                     best_move = (row, col)
 
-
     return best_move
-
 
 
 if __name__ == "__main__":

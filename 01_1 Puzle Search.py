@@ -91,17 +91,20 @@ def find_words(grid, words, view=False):
     return result
 
 
-# Example usage:
-grid = [['A', 'B', 'C', 'D'], ['E', 'F', 'G', 'O'], ['I', 'J', 'K', 'G'], ['M', 'N', 'H', 'P']]
-word_list = ["HELLO", "WORLD", "HI", "FOOD", "DOG", "GOD"]
-found_words = find_words(grid, word_list, view=True)
-print("Found words:", found_words)
 
-print("----------------------")
-print("Visualization by search")
-words = ["ROCK", "IN", "OF", "OOO", ]
-grid = [['R', 'B', 'R', 'R'],
-        ['E', 'O', 'O', 'O'],
-        ['I', 'C', 'C', 'C'],
-        ['K', 'N', 'O', 'K']]
-print(find_words(grid, words, view=True))
+if __name__ == "__main__":
+
+    # Example usage:
+    grid = [['A', 'B', 'C', 'D'], ['E', 'F', 'G', 'O'], ['I', 'J', 'K', 'G'], ['M', 'N', 'H', 'P']]
+    word_list = ["HELLO", "WORLD", "HI", "FOOD", "DOG", "GOD"]
+    found_words = find_words(grid, word_list, view=True)
+    print("Found words:", found_words)
+
+    print("----------------------")
+    print("Visualization by search")
+    words = ["ROCK", "IN", "OF", "OOO", ]
+    grid = [['R', 'B', 'R', 'R'],
+            ['E', 'O', 'O', 'O'],
+            ['I', 'C', 'C', 'C'],
+            ['K', 'N', 'O', 'K']]
+    print(find_words(grid, words, view=True))

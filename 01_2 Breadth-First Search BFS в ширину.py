@@ -10,7 +10,7 @@ def print_path(grid, points=[(None, None), ]):
             if (row, col) in points:
                 dot = f"*"
             else:
-                dot = f"{grid[row][col]}"
+                dot = f"{grid[row][col]}" if grid[row][col] != " " else f"-"
             print(dot, end="  ")
         print()
     print()
@@ -140,9 +140,7 @@ if __name__ == "__main__":
     shortest_path = find_shortest_path(grid, start_point, end_point, view=True)
     print("Shortest Path:", shortest_path)
     # print_path(grid, shortest_path)
-    shortest_path = find_shortest_path3(grid, start_point, end_point)
+    shortest_path = find_shortest_path(grid, start_point, end_point)
     print("Shortest Path:", shortest_path)
     print_path(grid, shortest_path)
-    print_path(grid, shortest_path)
-    # print_path(grid)
-    # print_grid(grid, shortest_path)
+
