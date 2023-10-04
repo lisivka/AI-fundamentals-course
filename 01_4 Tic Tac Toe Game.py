@@ -85,16 +85,17 @@ def play():
         if check_player_move(row, col, board) == False:
             continue
         board[row][col] = PLAYER_O
-        # if check_win_draw(board):
-        #     break
-
-        # get computer move
-        best_move = get_best_move(board)
-        board[best_move[0]][best_move[1]] = PLAYER_X
+        print("Player move:")
         if check_win_draw(board):
             break
 
-        # print_board(board)
+        # get computer move
+        row, col = get_best_move(board)
+        board[row][col] = PLAYER_X
+        print("Computer move:")
+        if check_win_draw(board):
+            break
+
 
 
 def is_full(board):
