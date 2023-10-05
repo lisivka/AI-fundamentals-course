@@ -97,7 +97,6 @@ def play():
             break
 
 
-
 def is_full(board):
     for row in board:
         if EMPTY in row:
@@ -127,27 +126,27 @@ def evaluate(board):
             0 if the game is a draw or still ongoing.
             '''
 
-    # Check rows and columns
+    # Check rows
     for row in board:
-        if row.count(PLAYER_X) == 3:
+        if set(row) == {PLAYER_X}:
             return 1
-        if row.count(PLAYER_O) == 3:
+        if set(row) == {PLAYER_O}:
             return -1
-    for col in range(3):
-        if board[0][col] == board[1][col] == board[2][col] == PLAYER_X:
+    # Check columns by transposing the board
+    transposed_board = list(zip(*board))
+    for row in transposed_board:
+        if set(row) == {PLAYER_X}:
             return 1
-        if board[0][col] == board[1][col] == board[2][col] == PLAYER_O:
+        if set(row) == {PLAYER_O}:
             return -1
+
 
     # Check diagonals
-    if board[0][0] == board[1][1] == board[2][2] == PLAYER_X:
+    main_diagonal = [board[i][i] for i in range(3)]
+    second_diagonal = [board[i][2 - i] for i in range(3)]
+    if set(main_diagonal) == {PLAYER_X} or set(second_diagonal) == {PLAYER_X}:
         return 1
-    if board[0][0] == board[1][1] == board[2][2] == PLAYER_O:
-        return -1
-
-    if board[0][2] == board[1][1] == board[2][0] == PLAYER_X:
-        return 1
-    if board[0][2] == board[1][1] == board[2][0] == PLAYER_O:
+    if set(main_diagonal) == {PLAYER_O} or set(second_diagonal) == {PLAYER_O}:
         return -1
 
     return 0  # the game is a draw or still ongoing
@@ -183,11 +182,22 @@ def minimax(board, depth, alpha, beta, is_maximizing):
             for col in range(3):
                 if board[row][col] == EMPTY:
                     board[row][col] = PLAYER_X
+                    print(f"row: {row}, col: {col}")
+                    print(f"board: {board}")
+                    print(f"depth: {depth}")
+                    print(f"alpha: {alpha}, beta: {beta}")
+
                     score = minimax(board, depth + 1, alpha, beta, False)
+
                     board[row][col] = EMPTY
                     best_score = max(score, best_score)
                     alpha = max(alpha, best_score)
+
+                    print("------------------")
+                    print(
+                        f"depth: {depth}, score: {score}, best_score: {best_score} ")
                     if beta <= alpha:
+                        print(f"<<<<       beta: {beta} <= alpha: {alpha}")
                         break
         return best_score
 
