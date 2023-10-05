@@ -142,11 +142,11 @@ def evaluate(board):
 
 
     # Check diagonals
-    main_diagonal = [board[i][i] for i in range(3)]
-    second_diagonal = [board[i][2 - i] for i in range(3)]
-    if set(main_diagonal) == {PLAYER_X} or set(second_diagonal) == {PLAYER_X}:
+    main_diagonal = {board[i][i] for i in range(3)}
+    second_diagonal = {board[i][2 - i] for i in range(3)}
+    if main_diagonal == {PLAYER_X} or second_diagonal == {PLAYER_X}:
         return 1
-    if set(main_diagonal) == {PLAYER_O} or set(second_diagonal) == {PLAYER_O}:
+    if main_diagonal == {PLAYER_O} or second_diagonal == {PLAYER_O}:
         return -1
 
     return 0  # the game is a draw or still ongoing
@@ -182,10 +182,10 @@ def minimax(board, depth, alpha, beta, is_maximizing):
             for col in range(3):
                 if board[row][col] == EMPTY:
                     board[row][col] = PLAYER_X
-                    print(f"row: {row}, col: {col}")
-                    print(f"board: {board}")
-                    print(f"depth: {depth}")
-                    print(f"alpha: {alpha}, beta: {beta}")
+                    # print(f"row: {row}, col: {col}")
+                    # print(f"board: {board}")
+                    # print(f"depth: {depth}")
+                    # print(f"alpha: {alpha}, beta: {beta}")
 
                     score = minimax(board, depth + 1, alpha, beta, False)
 
