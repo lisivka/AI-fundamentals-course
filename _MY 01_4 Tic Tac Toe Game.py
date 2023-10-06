@@ -154,7 +154,7 @@ def evaluate(board):
 
 
 # ===============================================
-def minimax(board, depth, alpha, beta, is_maximizing, counter=0):
+def minimax(board, depth, alpha, beta, is_maximizing):
     '''Implements the Minimax algorithm with Alpha-Beta pruning to determine the optimal score for a given board state.
 
     Parameters:
@@ -171,44 +171,7 @@ def minimax(board, depth, alpha, beta, is_maximizing, counter=0):
             0 if the game is a draw or still ongoing.
             '''
     # Function code here
-    counter += 1
-    if evaluate(board) == 1 or evaluate(board) == -1:
-        return evaluate(board), counter
 
-    if is_full(board):
-        return 0,   counter
-
-    if is_maximizing:
-        best_score = -float("inf")
-        for row in range(3):
-            for col in range(3):
-                if board[row][col] == EMPTY:
-                    board[row][col] = PLAYER_X
-
-                    score, counter = minimax(board, depth + 1, alpha, beta, False,
-                                     counter)
-
-                    board[row][col] = EMPTY
-                    best_score = max(score, best_score)
-                    alpha = max(alpha, best_score)
-                    if beta <= alpha:
-                        break
-        return best_score, counter
-
-    else:
-        best_score = float("inf")
-        for row in range(3):
-            for col in range(3):
-                if board[row][col] == EMPTY:
-                    board[row][col] = PLAYER_O
-                    score, counter = minimax(board, depth + 1, alpha, beta, True,
-                                     counter)
-                    board[row][col] = EMPTY
-                    best_score = min(score, best_score)
-                    beta = min(beta, best_score)
-                    if beta <= alpha:
-                        break
-        return best_score, counter
 
 
 def get_best_move(board):
@@ -222,15 +185,11 @@ def get_best_move(board):
         '''
     best_score = -float("inf")
     best_move = None
-    evaluate_state = []
-
     for row in range(3):
         for col in range(3):
             if board[row][col] == EMPTY:
                 board[row][col] = PLAYER_X
-                score, counter = minimax(board, 0, -float("inf"),
-                                         float("inf"), False)
-                print(f"counter = {counter} for {row, col} score = {score}")
+                score = minimax(board, 0, -float("inf"), float("inf"), False)
                 board[row][col] = EMPTY
                 if score > best_score:
                     best_score = score
