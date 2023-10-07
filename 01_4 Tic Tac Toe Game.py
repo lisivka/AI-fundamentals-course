@@ -141,7 +141,6 @@ def evaluate(board):
         if set(row) == {PLAYER_O}:
             return -1
 
-
     # Check diagonals
     main_diagonal = {board[i][i] for i in range(3)}
     second_diagonal = {board[i][2 - i] for i in range(3)}
@@ -176,7 +175,7 @@ def minimax(board, depth, alpha, beta, is_maximizing, counter=0):
         return evaluate(board), counter
 
     if is_full(board):
-        return 0,   counter
+        return 0, counter
 
     if is_maximizing:
         best_score = -float("inf")
@@ -184,10 +183,7 @@ def minimax(board, depth, alpha, beta, is_maximizing, counter=0):
             for col in range(3):
                 if board[row][col] == EMPTY:
                     board[row][col] = PLAYER_X
-
-                    score, counter = minimax(board, depth + 1, alpha, beta, False,
-                                     counter)
-
+                    score, counter = minimax(board, depth + 1, alpha, beta, False,                                             counter)
                     board[row][col] = EMPTY
                     best_score = max(score, best_score)
                     alpha = max(alpha, best_score)
@@ -202,7 +198,7 @@ def minimax(board, depth, alpha, beta, is_maximizing, counter=0):
                 if board[row][col] == EMPTY:
                     board[row][col] = PLAYER_O
                     score, counter = minimax(board, depth + 1, alpha, beta, True,
-                                     counter)
+                                             counter)
                     board[row][col] = EMPTY
                     best_score = min(score, best_score)
                     beta = min(beta, best_score)
@@ -228,8 +224,7 @@ def get_best_move(board):
         for col in range(3):
             if board[row][col] == EMPTY:
                 board[row][col] = PLAYER_X
-                score, counter = minimax(board, 0, -float("inf"),
-                                         float("inf"), False)
+                score, counter = minimax(board, 0, -float("inf"), float("inf"), False)
                 print(f"counter = {counter} for {row, col} score = {score}")
                 board[row][col] = EMPTY
                 if score > best_score:
