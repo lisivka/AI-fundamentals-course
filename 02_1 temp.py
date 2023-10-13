@@ -9,20 +9,23 @@ def schedule_tasks(tasks, resources, deadline):
     while current_time < deadline:
         # Sort resources in ascending order of their remaining capacities
         sorted_resources = sorted(resources.items(), key=lambda item: item[1])
+        print(f"sorted_resources: {sorted_resources}")
 
         task_assigned = False
 
-        for task_name, duration, requirements in tasks:
-            for resource_name, capacity in sorted_resources:
-                if resource_name in requirements and requirements[resource_name] > 0:
+        for task_name, duration, demands in tasks:
+            print(f"task_name: {task_name}, duration: {duration}, demands: {demands}"   )
+            for resource_name, volume in sorted_resources:
+                if resource_name in demands and demands[resource_name] > 0:
                     # Assign the task to the resource
                     if resource_name not in assigned_tasks:
                         assigned_tasks[resource_name] = []
                     assigned_tasks[resource_name].append(task_name)
 
+
                     # Update resource capacities
                     resources[resource_name] -= 1
-                    requirements[resource_name] -= 1
+                    demands[resource_name] -= 1
 
                     # Update the completion time for the task
                     task_times[task_name] = current_time + duration
@@ -53,7 +56,7 @@ tasks_list = [
     ('TaskC', 5.0, {'Resource1': 1})
 ]
 
-resources_dict = {'Resource1': 10, 'Resource2': 15}
+resources_dict = {'Resource1': 20, 'Resource2': 15, }
 
 deadline_time = 12.0
 
