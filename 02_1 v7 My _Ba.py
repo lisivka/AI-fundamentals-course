@@ -29,14 +29,19 @@ def schedule_tasks(tasks, resources, deadline):
     while tasks:
         # Get the next task to be scheduled
         task = tasks.pop(0)
-        print(f"==task: {task}")
-        print(f"{task[0]}: {task[1]}")
-        time_task = task[1]
+        # print(f"==task: {task}")
+        # print(f"{task[0]}: {task[1]}, {task[2]}")
+        # time_task = task[1]
+        task_name= task[0]
+        task_time = task[1]
+        task_resources = task[2]
+
         # Find a resource that can schedule the task
         resource = None
         # for resource_name, capacity in resources:
         for resource_name, capacity in resources.items():
-            if capacity >= task[1]:
+            # if capacity >= task[1]:
+            if capacity >= task_time:
                 resource = resource_name
                 break
 
