@@ -39,7 +39,8 @@ def schedule_tasks(tasks, resources, deadline):
                 # print(f"No requirements  for {task_name}")
                 continue
             if demand > resources[resource]:
-                # print(f"Not enough resources for {task_name}")
+                print(f"Not enough resources {resource} "
+                      f"{resources[resource]} for {task_name} demand-{demand}")
                 continue
 
             # Assign task to the resource
@@ -60,7 +61,7 @@ def schedule_tasks(tasks, resources, deadline):
 
         # If the task couldn't be assigned to any resource, extend the deadline
         if not assigned:
-            # print(f"Task {task_name} requirements {requirements} not assigned to any resource")
+            print(f"Task {task_name} requirements {requirements} not assigned to any resource")
             continue
 
     # Update completion time for each resource in assigned_tasks
@@ -79,21 +80,44 @@ def get_time_task(task_shedule, task_list):
 
     return task[1]
 
+def print_data(data):
+    for key, value in data.items():
+        if isinstance(value, list):
+            value_str = ', '.join(value)
+        else:
+            value_str = str(value)
+        print(f'{key}: {value_str}')
+
 
 # Example usage:
 tasks_list = [
-    ('TaskA', 6.0, {'Resource1': 2, 'Resource2': 1}),
-    ('TaskB', 7.2, {'Resource2': 3}),
+    ('Task_A', 6.0, {'Resource1': 2, 'Resource2': 1}),
+    ('Task_B', 7.2, {                'Resource2': 3}),
     # ('TaskC', 6.0,
-    ('TaskC', 6.0, {'Resource1': 2, 'Resource2': 1}),
-    ('TaskE', 7.0, {'Resource2': 1}),
-    ('TaskD', 7.0, {'Resource1': 2, 'Resource2': 1}),
-    ('TaskS', 10.0, {'Resource3': 1}),
+    ('Task_C', 6.1, {'Resource1': 2, 'Resource2': 1}),
+    ('Task_E', 7.0, {                'Resource2': 1}),
+    ('Task_D', 7.1, {'Resource1': 2, 'Resource2': 1}),
+    ('Task_S', 10.0, {                               'Resource3': 1}),
 ]
-
 resources_dict = {'Resource1': 10, 'Resource2': 15, 'Resource3': 10}
-
 deadline_time = 15.2
 
 result = schedule_tasks(tasks_list, resources_dict, deadline_time)
-print(result)
+print_data(result)
+# print(f"result: {result}")
+print()
+
+tasks_list = [
+    ('TaskA', 4.5, {'Resource1': 2, 'Resource2': 1}),
+    ('TaskB', 7.2, {                'Resource2': 3}),
+    ('TaskC', 5.0, {'Resource1': 1})
+]
+
+resources_dict = {'Resource1': 10, 'Resource2': 15}
+
+deadline_time = 12.0
+
+result = schedule_tasks(tasks_list, resources_dict, deadline_time)
+# print(f"result: {result}")
+print_data(result)
+
