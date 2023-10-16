@@ -97,8 +97,9 @@ def print_route(routes, depot, customer_locations):
         matrix[row][col] = 'M'
 
     matrix[depot_x][depot_y] = 'D'
-    print(f"Matrix: {num_row}x{num_col}")
+    print(f"Matrix: {num_row}x{num_col} with customers marked as 'M' and depot as 'D'")
     print(*matrix, sep='\n')
+
     mark = "R"
     for route in routes:
         count = 1
@@ -123,5 +124,6 @@ number_of_vehicles = 2
 
 optimized_routes = optimize_vrp(depot_location, customer_locations,
                                 capacity_per_vehicle, number_of_vehicles)
-print(f"optimized_routes: {optimized_routes}")
+print("optimized_routes: ", *optimized_routes, sep='\n')
+
 print_route(optimized_routes, depot_location, customer_locations)
