@@ -5,15 +5,16 @@ def optimize_inventory_management(demand, holding_cost, ordering_cost, initial_i
     model = pulp.LpProblem("Inventory_Management", pulp.LpMinimize)
 
     # Decision variables
-    periods = len(demand)
-    inventory = [pulp.LpVariable(f"inventory_{t}", lowBound=0) for t in range(periods)]
-    order_quantity = [pulp.LpVariable(f"order_quantity_{t}", lowBound=0) for t in range(periods)]
+    periods = range(len(demand))
+    inventory = [pulp.LpVariable(f"inventory_{t}", lowBound=0) for t in periods]
+    order_quantity = [pulp.LpVariable(f"order_quantity_{t}", lowBound=0) for t in periods]
 
     # Objective function: minimize total cost
-    model += pulp.lpSum(holding_cost * inventory[t] + ordering_cost * order_quantity[t] for t in range(periods))
+    model += pulp.lpSum(holding_cost * inventory[t] + ordering_cost * order_quantity[t] for t in periods)
+    print(f"===============model: {model}")
 
     # Constraints
-    for t in range(periods):
+    for t in periods:
         # Inventory balance constraint
         if t == 0:
             model += inventory[t] == initial_inventory + order_quantity[t] - demand[t]
@@ -21,13 +22,13 @@ def optimize_inventory_management(demand, holding_cost, ordering_cost, initial_i
             model += inventory[t] == inventory[t - 1] + order_quantity[t] - demand[t]
 
         # Reorder point constraint
-        model += inventory[t] >= reorder_point
-
+        model += inventory[t] <= reorder_point
+    print(f"===============model: {model}")
     # Solve the Linear Programming problem
     model.solve()
-
+    print(f"===============model: {model}")
     # Extract the optimal solution
-    result = [inventory[t].varValue for t in range(periods)]
+    result = [inventory[t].varValue for t in periods]
 
     return result
 

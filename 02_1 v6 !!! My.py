@@ -70,6 +70,7 @@ def schedule_tasks(tasks, resources, deadline):
         for shedule in assigned_tasks[resource]:
             total_time += get_time_task(shedule, tasks)
             task_times[shedule] = total_time
+
     return { **assigned_tasks, **task_times}
 
 

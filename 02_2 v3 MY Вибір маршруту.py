@@ -87,26 +87,29 @@ def optimize_vrp(depot, customers, vehicle_capacity, num_vehicles):
 
 
 
-def print_route(routes, depot_location, customer_locations):
-
-    max_x = max(location[0] for location in customer_locations)
-    max_y = max(location[1] for location in customer_locations)
-    matrix = [['_' for _ in range(max_y+1)] for _ in range(max_x+1)]
+def print_route(routes, depot, customer_locations):
+    all_locations = [depot]+customer_locations
+    num_row = 1 + max(location[0] for location in all_locations)
+    num_col = 1 + max(location[1] for location in all_locations)
+    matrix = [['_' for _ in range(num_col)] for _ in range(num_row)]
+    depot_x, depot_y =depot[0], depot[1]
     for row,col in customer_locations:
         matrix[row][col] = 'M'
 
-    matrix[depot_location[0]][depot_location[1]] = 'S'
+    matrix[depot_x][depot_y] = 'D'
+    print(f"Matrix: {num_row}x{num_col}")
     print(*matrix, sep='\n')
     mark = "R"
     for route in routes:
         count = 1
-        copy_matrix = matrix.copy()
-        print(f"Route: {route}")
+        copy_matrix = [row.copy() for row in matrix]
+        print('\n',f"Route: {route}")
         for row,col in route:
             copy_matrix[row][col] = mark + str(count)
             count += 1
-        matrix[depot_location[0]][depot_location[1]] = 'S'
-        print(*matrix, sep='\n')
+        copy_matrix[depot_x][depot_y] = mark + str(0)
+        print(*copy_matrix, sep='\n' )
+
 
 
 
