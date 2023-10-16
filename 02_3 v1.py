@@ -29,6 +29,9 @@ def optimize_inventory_management(demand, holding_cost, ordering_cost, initial_i
     print(f"===============model: {model}")
     # Extract the optimal solution
     result = [inventory[t].varValue for t in periods]
+    info = [ f"Period {t}: Order quantity = {order_quantity[t].varValue}, " \
+             f"Inventory = {inventory[t].varValue}, Demand = {demand[t]}"   for t in periods]
+    print(*info, sep='\n')
 
     return result
 
