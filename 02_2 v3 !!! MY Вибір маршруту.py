@@ -31,6 +31,7 @@ def find_best_vehicle(current_depot, customer_location,
                 best_vehicle = vehicle
     return min_distance, best_vehicle
 
+# @test_optimize_vrp
 def optimize_vrp(depot, customers, vehicle_capacity, num_vehicles):
     """
     Optimize the Vehicle Routing Problem to minimize total travel distance using Brute Force.

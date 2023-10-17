@@ -22,11 +22,12 @@ def schedule_tasks(tasks, resources, deadline):
     # current_time = 0.0
 
     # Sort tasks in ascending order of their durations
-    tasks.sort(key=lambda x: x[1], reverse=True)
-    # tasks.sort(key=lambda x: x[1])
+    # tasks.sort(key=lambda x: x[1], reverse=True)
+    tasks.sort(key=lambda x: x[1])
 
     # Sort resources in ascending order of their remaining capacities
-    resources = dict(sorted(resources.items(), key=lambda x: x[1], reverse=True))
+    # resources = dict(sorted(resources.items(), key=lambda x: x[1], reverse=True))
+    resources = dict(sorted(resources.items(), key=lambda x: x[1]))
 
     for task in tasks:
         task_name, duration, requirements = task
@@ -109,16 +110,12 @@ print_data(result)
 print()
 
 tasks_list = [
-    ('TaskA', 4.5, {'Resource1': 2, 'Resource2': 1}),
-    ('TaskB', 7.2, {                'Resource2': 3}),
-    ('TaskC', 5.0, {'Resource1': 1})
-]
-
-resources_dict = {'Resource1': 10, 'Resource2': 15}
-
-deadline_time = 12.0
+    ('Task_A', 4.0, {'Resource_1': 2, 'Resource_2': 1}),
+    ('Task_B', 7.0, {'Resource_2': 3}),
+    ('Task_C', 5.2, {'Resource_1': 1})]
+resources_dict = {'Resource_1': 10, 'Resource_2': 15}
+deadline_time = 14.0
 
 result = schedule_tasks(tasks_list, resources_dict, deadline_time)
-# print(f"result: {result}")
 print_data(result)
-
+# print(f"result: {result}")
