@@ -71,15 +71,15 @@ def identify_risks(risks_categories):
             # Append the risk description to the list under the corresponding category
         categorized_risks[category].append(risk_description)
 
-        categorized_risks[category].append(risk
-
-        categorized_risks[category].append(r
-
-        categorized_risks[category
-
-        categorized_r
-
-        categorized
+        # categorized_risks[category].append(risk
+        #
+        # categorized_risks[category].append(r
+        #
+        # categorized_risks[category
+        #
+        # categorized_r
+        #
+        # categorized
     return categorized_risks
 
 
