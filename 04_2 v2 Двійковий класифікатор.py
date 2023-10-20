@@ -1,8 +1,12 @@
 import pandas as pd
+from sklearn import svm
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, roc_auc_score
+from sklearn.metrics import accuracy_score, precision_score, recall_score, \
+    f1_score, roc_auc_score, confusion_matrix, classification_report
+from sklearn.neighbors import KNeighborsClassifier
+
 
 def load_dataset(file_path):
     """
@@ -47,9 +51,14 @@ def preprocess_text_data(dataset, target_column, vectorizer=None):
         vectorizer = TfidfVectorizer()
     text_features_transformed = vectorizer.fit_transform(dataset['Text'])
     target = dataset[target_column]
+    # print(f"text_features_transformed: {text_features_transformed}")
+    # print(f"target: {target}")
+    # print(f"vectorizer: {vectorizer}")
+
+
     return text_features_transformed, target, vectorizer
 
-def train_classifier(X_train, y_train):
+def train_classifier(x_train, y_train):
     """
     Train a classifier using the provided training data.
 
@@ -58,27 +67,28 @@ def train_classifier(X_train, y_train):
     The trained classifier is returned for further use.
 
     Args:
-        X_train (scipy.sparse.csr.csr_matrix or array-like): Training feature matrix.
+        x_train (scipy.sparse.csr.csr_matrix or array-like): Training feature matrix.
         y_train (array-like): Target values for training.
 
     Returns:
         sklearn.linear_model.LogisticRegression: Trained logistic regression classifier.
     """
     classifier = LogisticRegression()
-    classifier.fit(X_train, y_train)
+    classifier.fit(x_train, y_train)
+
     return classifier
 
-def evaluate_classifier(classifier, X_val, y_val):
+def evaluate_classifier(classifier, x_val, y_val):
     """
     Evaluate the performance of a classifier on validation data.
 
-    This function takes a trained classifier, validation feature matrix 'X_val', and
+    This function takes a trained classifier, validation feature matrix 'x_val', and
     corresponding validation target values 'y_val'. It calculates and returns various
     performance metrics including accuracy, precision, recall, F1 score, and ROC AUC score.
 
     Args:
         classifier (sklearn.base.BaseEstimator): Trained classifier to be evaluated.
-        X_val (scipy.sparse.csr.csr_matrix or array-like): Validation feature matrix.
+        x_val (scipy.sparse.csr.csr_matrix or array-like): Validation feature matrix.
         y_val (array-like): Validation target values.
 
     Returns:
@@ -89,12 +99,12 @@ def evaluate_classifier(classifier, X_val, y_val):
               - 'f1_score': F1 score.
               - 'roc_auc': ROC AUC score.
     """
-    y_pred = classifier.predict(X_val)
+    y_pred = classifier.predict(x_val)
     accuracy = accuracy_score(y_val, y_pred)
     precision = precision_score(y_val, y_pred)
     recall = recall_score(y_val, y_pred)
     f1 = f1_score(y_val, y_pred)
-    roc_auc = roc_auc_score(y_val, classifier.predict_proba(X_val)[:, 1])
+    roc_auc = roc_auc_score(y_val, classifier.predict_proba(x_val)[:, 1])
 
     metrics = {
         'accuracy': accuracy,
@@ -106,20 +116,52 @@ def evaluate_classifier(classifier, X_val, y_val):
 
     return metrics
 
+
+
 # Load the CyberBullyingTweets dataset
 file_path = 'CyberBullying_Comments_Dataset.csv'
 target_column = 'CB_Label'  # Replace with the actual label column name
 data = load_dataset(file_path)
 
 # Preprocess the text data and extract features
-X_text, y, text_vectorizer = preprocess_text_data(data, target_column)
+x_text, y, text_vectorizer = preprocess_text_data(data, target_column)
+# print(x_text, y, text_vectorizer)
 
 # Split the data into train and validation sets
-X_train, X_val, y_train, y_val = train_test_split(X_text, y, test_size=0.2, random_state=42)
+x_train, x_val, y_train, y_val = train_test_split(x_text, y, test_size=0.2, random_state=42)
+
+# print(f"x_train: {x_train}")
+# print(f"x_val: {x_val}")
+# print(f"y_train: {y_train}")
+# print(f"y_val: {y_val}")
 
 # Train the logistic regression classifier
-classifier = train_classifier(X_train, y_train)
+classifier = train_classifier(x_train, y_train)
 
 # Evaluate the classifier
-evaluation_metrics = evaluate_classifier(classifier, X_val, y_val)
-print("Evaluation Metrics:", evaluation_metrics)
+evaluation_metrics = evaluate_classifier(classifier, x_val, y_val)
+print(evaluation_metrics, sep="\n")
+
+
+
+X_train, X_test, y_train, y_test = train_test_split(x_text, y, test_size=0.20,
+                                                    random_state=27)
+
+SVC_model = svm.SVC()
+KNN_model = KNeighborsClassifier(n_neighbors=5)
+SVC_model.fit(x_train, y_train)
+KNN_model.fit(x_train, y_train)
+SVC_prediction = SVC_model.predict(x_val)
+KNN_prediction = KNN_model.predict(x_val)
+# print(f"SVC_prediction: {SVC_prediction}")
+# print(f"KNN_prediction: {KNN_prediction}")
+
+# Оценка точности — простейший вариант оценки работы классификатора
+print(accuracy_score(SVC_prediction, y_test))
+print(accuracy_score(KNN_prediction, y_test))
+# Но матрица неточности и отчёт о классификации дадут больше информации о производительности
+
+# print(confusion_matrix(SVC_prediction, y_test))
+# print(classification_report(KNN_prediction, y_test))
+
+
