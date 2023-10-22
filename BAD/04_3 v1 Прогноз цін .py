@@ -1,11 +1,7 @@
-import numpy as np
 import pandas as pd
-from sklearn.impute import SimpleImputer
-from sklearn.preprocessing import OneHotEncoder
 from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression, HuberRegressor
+from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
-
 
 def load_dataset(file_path):
     """
@@ -27,53 +23,21 @@ def preprocess_data(dataset):
     """
     Preprocess the dataset by selecting relevant features and target.
 
-    This function takes a dataset and extracts the relevant columns ('total_rooms', 'total_bedrooms',
-    'population', 'households', 'median_income') as features, and the 'median_house_value' column
-    as the target variable. The preprocessed features and target are returned for further use.
+    This function takes a dataset and extracts the 'square_footage' and 'num_bedrooms'
+    columns as features, and the 'price' column as the target variable. The preprocessed
+    features and target are returned for further use.
 
     Args:
         dataset (pandas.DataFrame): The dataset containing relevant columns.
 
     Returns:
         tuple: A tuple containing:
-            - X (pandas.DataFrame): Preprocessed feature matrix with selected columns.
-            - y (pandas.Series): Target values from the 'median_house_value' column.
+            - X (pandas.DataFrame): Preprocessed feature matrix with 'square_footage' and 'num_bedrooms'.
+            - y (pandas.Series): Target values from the 'price' column.
     """
-    # selected_features = ['total_rooms', 'total_bedrooms', 'population', 'households', 'median_income']
-    # selected_features = ['total_rooms', 'total_bedrooms']
-    selected_features = [
-        'total_rooms',
-        'total_bedrooms',
-        'housing_median_age',
-        'population',
-        'households',
-        'median_income',
-        'longitude',
-        'latitude',
-        # 'ocean_proximity',
-    ]
-    X = dataset[selected_features]
-    y = dataset['median_house_value']
-    imputer = SimpleImputer(strategy="constant", fill_value=0)
-    imputer = SimpleImputer(strategy='mean')
-    X = imputer.fit_transform(X)
-
+    X = dataset[['square_footage', 'num_bedrooms'],]
+    y = dataset['price']
     return X, y
-
-def encode_categorical_features(X):
-    # One-hot encode the "ocean_proximity" column
-    # encoder = OneHotEncoder(sparse=False, handle_unknown='ignore')
-    # ocean_proximity_encoded = encoder.fit_transform(X[['ocean_proximity']])
-    # X_encoded = X.drop(columns=['ocean_proximity'])
-    # X_encoded = pd.concat([X_encoded, pd.DataFrame(ocean_proximity_encoded, columns=encoder.get_feature_names_out(['ocean_proximity']))], axis=1)
-    # return X_encoded
-    encoder = OneHotEncoder(sparse_output=False, handle_unknown='ignore')
-    ocean_proximity_encoded = encoder.fit_transform(X[:, -1].reshape(-1, 1))
-    X_encoded = X[:, :-1]
-    X_encoded = np.hstack((X_encoded, ocean_proximity_encoded))
-    return X_encoded
-
-
 
 def train_regression_model(X_train, y_train):
     """
@@ -90,8 +54,7 @@ def train_regression_model(X_train, y_train):
     Returns:
         sklearn.linear_model.LinearRegression: Trained linear regression model.
     """
-    model = LinearRegression()
-    # model = HuberRegressor()
+    model = LinearRegression( )
     model.fit(X_train, y_train)
     return model
 
@@ -125,14 +88,11 @@ def evaluate_regression_model(model, X_val, y_val):
     return {'MSE': mse, 'RMSE': rmse, 'MAE': mae, 'R-squared': r_squared}
 
 # Load the dataset
-file_path = 'housing.csv'  # Replace with actual file path
+file_path = '../housing.csv'  # Replace with actual file path
 data = load_dataset(file_path)
-# print(data.info() )
+
 # Preprocess the data
 X, y = preprocess_data(data)
-
-# Encode categorical features, including "ocean_proximity"
-X = encode_categorical_features(X)
 
 # Split the data into train and validation sets
 X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, random_state=42)

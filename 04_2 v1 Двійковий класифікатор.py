@@ -115,7 +115,7 @@ data = load_dataset(file_path)
 
 # Preprocess the text data and extract features
 x_text, y, text_vectorizer = preprocess_text_data(data, target_column)
-print(x_text, y, text_vectorizer)
+# print(x_text, y, text_vectorizer)
 
 # Split the data into train and validation sets
 x_train, x_val, y_train, y_val = train_test_split(x_text, y, test_size=0.2, random_state=42)

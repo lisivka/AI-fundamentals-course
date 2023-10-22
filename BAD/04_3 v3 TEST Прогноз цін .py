@@ -1,10 +1,10 @@
 import numpy as np
 import pandas as pd
 from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import OneHotEncoder
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression, HuberRegressor
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
-from sklearn.preprocessing import OneHotEncoder
 
 
 def load_dataset(file_path):
@@ -44,7 +44,7 @@ def preprocess_data(dataset):
     selected_features = [
         'total_rooms',
         'total_bedrooms',
-        # 'housing_median_age',
+        'housing_median_age',
         'population',
         'households',
         'median_income',
@@ -54,7 +54,7 @@ def preprocess_data(dataset):
     ]
     X = dataset[selected_features]
     y = dataset['median_house_value']
-    # imputer = SimpleImputer(strategy="constant", fill_value=0)
+    imputer = SimpleImputer(strategy="constant", fill_value=0)
     imputer = SimpleImputer(strategy='mean')
     X = imputer.fit_transform(X)
 
@@ -62,11 +62,18 @@ def preprocess_data(dataset):
 
 def encode_categorical_features(X):
     # One-hot encode the "ocean_proximity" column
-    encoder = OneHotEncoder(sparse=False, handle_unknown='ignore')
+    # encoder = OneHotEncoder(sparse=False, handle_unknown='ignore')
+    # ocean_proximity_encoded = encoder.fit_transform(X[['ocean_proximity']])
+    # X_encoded = X.drop(columns=['ocean_proximity'])
+    # X_encoded = pd.concat([X_encoded, pd.DataFrame(ocean_proximity_encoded, columns=encoder.get_feature_names_out(['ocean_proximity']))], axis=1)
+    # return X_encoded
+    encoder = OneHotEncoder(sparse_output=False, handle_unknown='ignore')
     ocean_proximity_encoded = encoder.fit_transform(X[:, -1].reshape(-1, 1))
     X_encoded = X[:, :-1]
     X_encoded = np.hstack((X_encoded, ocean_proximity_encoded))
     return X_encoded
+
+
 
 def train_regression_model(X_train, y_train):
     """
@@ -83,8 +90,8 @@ def train_regression_model(X_train, y_train):
     Returns:
         sklearn.linear_model.LinearRegression: Trained linear regression model.
     """
-    # model = LinearRegression()
-    model = HuberRegressor()
+    model = LinearRegression()
+    # model = HuberRegressor()
     model.fit(X_train, y_train)
     return model
 
@@ -118,14 +125,14 @@ def evaluate_regression_model(model, X_val, y_val):
     return {'MSE': mse, 'RMSE': rmse, 'MAE': mae, 'R-squared': r_squared}
 
 # Load the dataset
-file_path = 'housing.csv'  # Replace with actual file path
+file_path = '../housing.csv'  # Replace with actual file path
 data = load_dataset(file_path)
 # print(data.info() )
 # Preprocess the data
 X, y = preprocess_data(data)
 
 # Encode categorical features, including "ocean_proximity"
-# X = encode_categorical_features(X)
+X = encode_categorical_features(X)
 
 # Split the data into train and validation sets
 X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, random_state=42)

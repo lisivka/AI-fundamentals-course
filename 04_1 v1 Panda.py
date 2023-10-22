@@ -26,21 +26,16 @@ def inspect_data(dataset, num_rows=5):
     num_rows (int): Number of rows to display.
     """
     head = dataset.head(num_rows)
-    print(head, '\n')
-    # print columns
-    print("\n", f"All COLUMNS( {len(dataset.columns)} )", *dataset.columns,
-          sep="\n")
-
+    print(head)
+    print(dataset.info())
     return
 
 
 def calculate_summary_statistics(dataset):
     """
     Calculate summary statistics for numerical columns in the dataset.
-
     Parameters:
     dataset (pd.DataFrame): Loaded dataset.
-
     Returns:
     pd.DataFrame: Summary statistics.
     """
@@ -98,8 +93,11 @@ file_path = 'housing.csv'  # Replace with the actual file path
 data = load_dataset(file_path)
 
 # Perform data exploration
-# inspect_data(data)
+inspect_data(data)
 summary_stats = calculate_summary_statistics(data)
-# visualize_data(data)
+visualize_data(data)
+
 data_filled = handle_missing_values(data)
+# print(data_filled.isnull().sum())
 summary_stats = calculate_summary_statistics(data)
+
