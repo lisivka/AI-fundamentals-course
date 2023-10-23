@@ -23,8 +23,8 @@ def relu(x):
     Returns:
         float: Output of the ReLU function.
     """
-    return max(0, x)
-    # return np.maximum(0, x)
+    # return max(0, x)
+    return np.maximum(0, x)
 
 def tanh(x):
     """
