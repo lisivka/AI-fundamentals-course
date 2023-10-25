@@ -3,12 +3,13 @@ class Perceptron:
     def __init__(self, input_size):
         # Инициализация модели персептрона
         # input_size - количество входных признаков
-        self.weights = np.zeros(input_size + 1)  # Создаем веса для каждого входа и добавляем вес смещения (bias)
+        self.weights = np.empty(input_size + 1)  # Создаем веса для каждого
+        # входа и добавляем вес смещения (bias)
 
     def activation(self, x):
         # Функция активации (функция порога)
         return 1 if x >= 0 else 0
-
+        # return 1 / (1 + np.exp(-x))
     def predict(self, x):
         # Прогнозирование метки класса с использованием модели персептрона
         # x - входные признаки
@@ -32,6 +33,7 @@ class Perceptron:
                 target = y[i]
                 # Добавляем 1 в начало вектора x для учета веса смещения (bias)
                 x_with_bias = np.insert(x, 0, 1)
+                print(x_with_bias)
                 z = np.dot(self.weights, x_with_bias)
                 prediction = self.activation(z)
 
