@@ -125,7 +125,7 @@ def evaluate_regression_model(model, X_val, y_val):
     return {'MSE': mse, 'RMSE': rmse, 'MAE': mae, 'R-squared': r_squared}
 
 # Load the dataset
-file_path = '../housing.csv'  # Replace with actual file path
+file_path = '../DONE/housing.csv'  # Replace with actual file path
 data = load_dataset(file_path)
 # print(data.info() )
 # Preprocess the data
