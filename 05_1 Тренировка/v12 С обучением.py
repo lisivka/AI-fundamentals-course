@@ -27,7 +27,8 @@ class Perceptron:
 
         hidden_sum = np.dot(self.w_hidden, x)
         hidden_out = self.activation(hidden_sum)
-        hidden_out = np.append(hidden_out, 1)  # Добавляем bias как последний элемент выхода слоя
+        hidden_out = np.append(hidden_out, 0)  # Добавляем bias как
+        # последний элемент выхода слоя
 
         output_sum = np.dot(self.w_out, hidden_out)
         y = self.activation(output_sum)

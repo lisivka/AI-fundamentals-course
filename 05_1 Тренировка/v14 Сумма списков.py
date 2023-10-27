@@ -14,3 +14,10 @@ for i in range(len(list1)):
         print(list1[i], list2[j], list1[i] * list2[j] )
         summa += list1[i] * list2[j]
 print("Результат умножения и суммирования:", summa)
+
+
+import numpy as np
+list3 = np.array([0, 1]+[0])
+print(list3)
+dot = np.dot(list3, list2)
+print(dot)
