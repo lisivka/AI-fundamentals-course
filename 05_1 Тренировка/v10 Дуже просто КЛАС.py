@@ -20,11 +20,11 @@ class Perceptron:
         y = self.activation(output_sum)
 
         print("\n", f"x: {x}")
-        print(f"w_hidden: {self.w_hidden}", sep="\n")
-        print(f"hidden_sum: {hidden_sum}")
-        print(f"hidden_out: {hidden_out}")
-        print(f"w_out: {self.w_out}", sep="\n")
-        print(f"output_sum: {output_sum}")
+        # print(f"w_hidden: {self.w_hidden}", sep="\n")
+        # print(f"hidden_sum: {hidden_sum}")
+        # print(f"hidden_out: {hidden_out}")
+        # print(f"w_out: {self.w_out}", sep="\n")
+        # print(f"output_sum: {output_sum}")
         print(f"y: {y}")
 
 
