@@ -1,7 +1,7 @@
 import numpy as np
 
 class Perceptron:
-    def __init__(self, input_size, learning_rate=0.05, epochs=500):
+    def __init__(self, input_size, learning_rate=0.05, epochs=5000):
         self.input_size = input_size
         self.learning_rate = learning_rate
         self.epochs = epochs
@@ -53,3 +53,6 @@ print("Accuracy:", accuracy)
 for i in range(len(X)):
     prediction = perceptron.predict(X[i])
     print(f"Input: {X[i]}, Target: {y[i]}, Prediction: {prediction}")
+
+print(f"weights: {perceptron.weights}")
+print(f"bias: {perceptron.bias}")

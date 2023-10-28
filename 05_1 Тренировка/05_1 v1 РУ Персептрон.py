@@ -10,8 +10,8 @@ class Perceptron:
 
     def activation(self, x):
         # Функция активации (функция порога)
-        return 1 if x >= 0 else 0
-        # return 1 / (1 + np.exp(-x))
+        # return 1 if x >= 0 else 0
+        return 1 / (1 + np.exp(-x))
     def predict(self, x):
         # Прогнозирование метки класса с использованием модели персептрона
         # x - входные признаки
