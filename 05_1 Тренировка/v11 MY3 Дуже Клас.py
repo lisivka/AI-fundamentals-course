@@ -7,8 +7,8 @@ class Perceptron:
         self.w3 = np.array([2, 2, -1])
 
     def activation(self, x):
-        # return 1 if x > 0 else 0
-        return 1 / (1 + np.exp(-x))
+        return 1 if x > 0 else 0
+        # return 1 / (1 + np.exp(-x))
     def predict(self, X):
         x = np.array(X)
         w_hidden1 = x[0] * self.w1

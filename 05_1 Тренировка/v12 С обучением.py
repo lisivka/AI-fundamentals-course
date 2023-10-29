@@ -18,7 +18,7 @@ class Perceptron:
 
     def activation(self, x):
         return 1 / (1 + np.exp(-x))
-
+        # return 1 if x > 0 else 0
     def activation_derivative(self, x):
         return x * (1 - x)
 

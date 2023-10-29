@@ -11,7 +11,7 @@ class Perceptron:
     def activation(self, x):
         # Простая ступенчатая функция активации (пороговая функция)
         return 1 if x >= 0 else 0
-
+        # return 1 / (1 + np.exp(-x))
     def predict(self, x):
         # Вычисление выхода перцептрона
         z = np.dot(self.weights, x) + self.bias

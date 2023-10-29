@@ -66,3 +66,6 @@ for epoch in range(epochs):
 # Test the trained Perceptron
 print(perceptron.forward(C1[0]), perceptron.forward(C1[1]))
 print(perceptron.forward(C2[0]), perceptron.forward(C2[1]))
+print(f'sels.w_hidden: {perceptron.w_hidden}')
+print(f'sels.w_out: {perceptron.w_out}')
+print(f'num_inputs: {num_inputs}')

@@ -5,8 +5,8 @@ class Perceptron:
     def __init__(self, input_size):
         # Инициализация модели персептрона
         # input_size - количество входных признаков
-        self.weights = np.empty(input_size + 1)  # Создаем веса для каждого
-        # входа и добавляем вес смещения (bias)
+        self.weights = np.zeros(input_size + 1)  # Создаем веса для каждого входа и добавляем вес смещения (bias)
+
 
     def activation(self, x):
         # Функция активации (функция порога)
@@ -35,7 +35,7 @@ class Perceptron:
                 target = y[i]
                 # Добавляем 1 в начало вектора x для учета веса смещения (bias)
                 x_with_bias = np.insert(x, 0, 1)
-                print(x_with_bias)
+                # print(x_with_bias)
                 z = np.dot(self.weights, x_with_bias)
                 prediction = self.activation(z)
 
@@ -44,6 +44,8 @@ class Perceptron:
 
                 # Обновляем веса согласно правилу обучения персептрона
                 self.weights += learning_rate * error * x_with_bias
+                print(f"epoch: {epoch}, x: {x}, target: {target}, prediction: {prediction}, weights: {self.weights}")
+
 
 # XOR датасет: Входные признаки и соответствующие метки
 X = np.array([[0, 0], [0, 1], [1, 0], [1, 1]])
@@ -58,3 +60,5 @@ test_data = np.array([[0, 0], [0, 1], [1, 0], [1, 1]])
 for data in test_data:
     prediction = perceptron.predict(data)
     print(f"Входные признаки: {data}, Прогноз: {prediction}")
+
+print(f"Веса: {perceptron.weights}")
