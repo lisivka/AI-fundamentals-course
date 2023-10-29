@@ -48,8 +48,7 @@ class Perceptron:
 
                 # Рассчитать ошибку
                 error = target - train_out
-                if error == 0:
-                    continue
+
 
                 # Обратный проход (обновление весов)
                 delta = error * self.sigmoid_dx(train_out)
@@ -91,7 +90,7 @@ if __name__ == '__main__':
     X = np.array([[0, 0], [0, 1], [1, 0], [1, 1]])
     y = np.array([0, 1, 1, 0])
 
-    perceptron.train(X, y, learning_rate=0.2, epochs=10000)
+    perceptron.train(X, y, learning_rate=0.2, epochs=100000)
 
     result = [perceptron.predict(x) for x in X]
     print("\n","*"*20)

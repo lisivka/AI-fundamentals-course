@@ -17,14 +17,8 @@ class Perceptron:
     def sigmoid_derivative(self, x):
         return x * (1 - x)
 
-    def mean_squared_error(self, y, predicted):
-        return np.mean((y - predicted) ** 2)
-
-    def mean_squared_error_derivative(self, y, predicted):
-        return -2 * (y - predicted)
-
-    def train(self, X, y, epochs=100000, learning_rate=0.1):
-        for epoch in range(epochs):
+    def train(self, X, y, max_epochs=1000, learning_rate=0.1, min_mse=0.001):
+        for epoch in range(max_epochs):
             # Прямое распространение
             hidden_layer_input = np.dot(X, self.weights_input_hidden) + self.bias_hidden
             hidden_layer_output = self.sigmoid(hidden_layer_input)
@@ -32,11 +26,17 @@ class Perceptron:
             output_layer_output = self.sigmoid(output_layer_input)
 
             # Ошибка и её производная
-            error = self.mean_squared_error(y, output_layer_output)
-            d_error = self.mean_squared_error_derivative(y, output_layer_output)
+            error = y - output_layer_output
+
+            # MSE (среднеквадратичная ошибка)
+            mse = np.mean(error ** 2)
+
+            if mse < min_mse:
+                print(f"Эпоха {epoch}: MSE = {mse} < {min_mse}. Обучение завершено.")
+                break
 
             # Backpropagation
-            d_output = d_error * self.sigmoid_derivative(output_layer_output)
+            d_output = error * self.sigmoid_derivative(output_layer_output)
             error_hidden = d_output.dot(self.weights_hidden_output.T)
             d_hidden = error_hidden * self.sigmoid_derivative(hidden_layer_output)
 
@@ -64,7 +64,7 @@ if __name__ == "__main__":
     hidden_size = 4
     output_size = 1
     model = Perceptron(input_size, hidden_size, output_size)
-    model.train(X, y)
+    model.train(X, y, max_epochs=100000, min_mse=0.001)
 
     # Пример предсказания
     test_input = np.array([[0, 0], [0, 1], [1, 0], [1, 1]])

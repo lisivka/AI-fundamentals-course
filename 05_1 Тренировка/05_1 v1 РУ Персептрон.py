@@ -44,7 +44,7 @@ class Perceptron:
 
                 # Обновляем веса согласно правилу обучения персептрона
                 self.weights += learning_rate * error * x_with_bias
-                print(f"epoch: {epoch}, x: {x}, target: {target}, prediction: {prediction}, weights: {self.weights}")
+                # print(f"epoch: {epoch}, x: {x}, target: {target}, prediction: {prediction}, weights: {self.weights}")
 
 
 # XOR датасет: Входные признаки и соответствующие метки
@@ -53,7 +53,7 @@ y = np.array([0, 1, 1, 0])
 
 # Создаем и обучаем модель персептрона
 perceptron = Perceptron(input_size=2)
-perceptron.train(X, y, num_epochs=1000, learning_rate=0.1)
+perceptron.train(X, y, num_epochs=20000, learning_rate=0.1)
 
 # Проверяем обученную модель
 test_data = np.array([[0, 0], [0, 1], [1, 0], [1, 1]])

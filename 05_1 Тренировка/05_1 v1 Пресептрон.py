@@ -1,7 +1,7 @@
 import numpy as np
 
 class Perceptron:
-    def __init__(self, input_size, learning_rate=0.05, epochs=5000):
+    def __init__(self, input_size, learning_rate=0.05, epochs=30000):
         self.input_size = input_size
         self.learning_rate = learning_rate
         self.epochs = epochs

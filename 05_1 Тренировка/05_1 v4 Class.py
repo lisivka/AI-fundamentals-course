@@ -1,5 +1,5 @@
 class Perceptron:
-    def __init__(self, input_size, learning_rate=0.1, epochs=1000):
+    def __init__(self, input_size, learning_rate=0.1, epochs=20000):
         self.input_size = input_size
         self.learning_rate = learning_rate
         self.epochs = epochs

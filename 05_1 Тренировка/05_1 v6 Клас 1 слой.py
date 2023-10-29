@@ -29,8 +29,8 @@ class Perceptron:
                 self.weights += learning_rate * error * inputs
 
                 # Выводим информацию о процессе обучения
-                print(
-                    f"Epoch {epoch + 1}, Input: {inputs[:2]}, Target: {target}, Prediction: {prediction}, Weights: {self.weights}")
+                # print(
+                    # f"Epoch {epoch + 1}, Input: {inputs[:2]}, Target: {target}, Prediction: {prediction}, Weights: {self.weights}")
 
 
 # Исходные данные
@@ -40,8 +40,10 @@ y = np.array([0, 1, 1, 0])
 # Пример использования класса Perceptron
 if __name__ == "__main__":
     perceptron = Perceptron()
-    num_epochs = 10
+    num_epochs = 20000
     learning_rate = 0.1
 
     perceptron.train(X, y, num_epochs, learning_rate)
+    print("Веса перцептрона:", perceptron.weights)
+    print()
 

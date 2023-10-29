@@ -58,7 +58,7 @@ y = np.array([0, 1, 1, 0])
 
 # Create and train the perceptron model
 perceptron = Perceptron(input_size=3)
-perceptron.train(X, y, num_epochs=1000, learning_rate=0.1)
+perceptron.train(X, y, num_epochs=20000, learning_rate=0.1)
 
 # Test the trained model
 test_data = np.array([[0, 0], [0, 1], [1, 0], [1, 1]])

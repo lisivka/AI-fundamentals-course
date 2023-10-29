@@ -10,8 +10,8 @@ class Perceptron:
         # Суммируем взвешенные входы
 
         weighted_sum = np.dot(inputs, self.weights)
-        print("\n","inputs", inputs, "weights", self.weights)
-        print("weighted_sum", weighted_sum)
+        # print("\n","inputs", inputs, "weights", self.weights)
+        # print("weighted_sum", weighted_sum)
 
 
         # Применяем функцию активации (1 if x >= 0 else 0)
@@ -33,8 +33,8 @@ class Perceptron:
                 self.weights += learning_rate * error * inputs
 
                 # Выводим информацию о процессе обучения
-                print(
-                    f"Epoch {epoch + 1}, Input: {inputs[:2]}, Target: {target}, Prediction: {prediction}, Weights: {self.weights}")
+                # print(
+                #     f"Epoch {epoch + 1}, Input: {inputs[:2]}, Target: {target}, Prediction: {prediction}, Weights: {self.weights}")
 
     def predict(self, X):
         predictions = []
@@ -52,12 +52,12 @@ y = np.array([0, 1, 1, 0])
 # Пример использования класса Perceptron
 if __name__ == "__main__":
     perceptron = Perceptron()
-    num_epochs = 10
+    num_epochs = 20000
     learning_rate = 0.1
 
     perceptron.train(X, y, num_epochs, learning_rate)
 
     # Предсказание
-    new_data = np.array([[0, 1], [1, 0], [1, 1]])
+    new_data = np.array([[0, 0],[0, 1], [1, 0], [1, 1]])
     predictions = perceptron.predict(new_data)
     print("Predictions for new data:", predictions)
