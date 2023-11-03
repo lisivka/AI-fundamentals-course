@@ -29,14 +29,14 @@ def load_dataset(file_path):
 def add_category(dataset):
 
     unique_values = dataset['ocean_proximity'].unique()
-    # print(unique_values)
+    print(unique_values)
     new_columns = "ocean_category"
     dataset[new_columns] = 0
     dataset.loc[dataset['ocean_proximity'] == 'NEAR BAY', new_columns] = 1
     dataset.loc[dataset['ocean_proximity'] == '<1H OCEAN', new_columns] = 2
     dataset.loc[dataset['ocean_proximity'] == 'NEAR OCEAN', new_columns] = 3
     dataset.loc[dataset['ocean_proximity'] == 'INLAND', new_columns] = 4
-    dataset.loc[dataset['ocean_proximity'] == 'INLAND', new_columns] = 5
+    dataset.loc[dataset['ocean_proximity'] == 'ISLAND', new_columns] = 5
     return dataset
 
 def preprocess_data(dataset):
@@ -67,6 +67,7 @@ def preprocess_data(dataset):
         'households',
         'median_income',
         'ocean_category',
+
     ]
     X = dataset[selected_features]
     y = dataset['median_house_value']
