@@ -20,7 +20,7 @@ class Perceptron:
     def mean_squared_error(self, y, predicted):
         return np.mean((y - predicted) ** 2)
 
-    def train(self, X, y, epochs=10000, learning_rate=0.1):
+    def train(self, X, y, epochs=20000, learning_rate=0.1):
         for epoch in range(epochs):
             # Прямое распространение
             hidden_layer_input = np.dot(X, self.weights_input_hidden) + self.bias_hidden

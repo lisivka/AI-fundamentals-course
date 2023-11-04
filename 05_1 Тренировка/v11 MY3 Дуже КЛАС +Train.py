@@ -63,17 +63,17 @@ class Perceptron:
                 # print(f"ДОself.w3: {self.w3}")
                 self.w3 += learning_rate * delta * train_out
                 # print(f"ПОСЛЕself.w3: {self.w3[0]}")
-                self.w3[0] -=layer_hidden_activation[0] * learning_rate * delta
-                self.w3[1] -=layer_hidden_activation[1] * learning_rate * delta
-                self.w3[2] -=layer_hidden_activation[2] * learning_rate * delta
+                self.w3[0] +=layer_hidden_activation[0] * learning_rate * delta
+                self.w3[1] +=layer_hidden_activation[1] * learning_rate * delta
+                self.w3[2] +=layer_hidden_activation[2] * learning_rate * delta
 
-                self.w1[0] -= input_data[0] * learning_rate * delta
-                self.w1[1] -= input_data[0] * learning_rate * delta
-                self.w1[2] -= input_data[0] * learning_rate * delta
+                self.w1[0] += input_data[0] * learning_rate * delta
+                self.w1[1] += input_data[0] * learning_rate * delta
+                self.w1[2] += input_data[0] * learning_rate * delta
 
-                self.w2[0] -= input_data[1] * learning_rate * delta
-                self.w2[1] -= input_data[1] * learning_rate * delta
-                self.w2[2] -= input_data[1] * learning_rate * delta
+                self.w2[0] += input_data[1] * learning_rate * delta
+                self.w2[1] += input_data[1] * learning_rate * delta
+                self.w2[2] += input_data[1] * learning_rate * delta
 
 
 
@@ -90,7 +90,7 @@ if __name__ == '__main__':
     X = np.array([[0, 0], [0, 1], [1, 0], [1, 1]])
     y = np.array([0, 1, 1, 0])
 
-    perceptron.train(X, y, learning_rate=0.2, epochs=100000)
+    perceptron.train(X, y, learning_rate=0.2, epochs=20000)
 
     result = [perceptron.predict(x) for x in X]
     print("\n","*"*20)
