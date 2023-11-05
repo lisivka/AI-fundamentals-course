@@ -11,8 +11,7 @@ class TwoLayerPerceptron:
         self.epochs = epochs
 
         # Initialize weights and biases for the first and second layers
-        self.weights_input_hidden = np.random.rand(self.input_size,
-                                                   self.hidden_size)
+        self.weights_input_hidden = np.random.rand(self.input_size, self.hidden_size)
         self.bias_hidden = np.zeros((1, self.hidden_size))
         self.weights_hidden_output = np.random.rand(self.hidden_size,
                                                     self.output_size)
