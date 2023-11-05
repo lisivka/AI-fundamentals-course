@@ -60,9 +60,9 @@ def run_train_sentiment_analysis_model(texts, labels, file_model, max_words, emb
 
 # Hyperparameters
 max_words = 10000  # Максимальна кількість слів у словнику
-embedding_dim = 150  # Розмірність вбудовування слів
-num_epochs = 50  # Кількість епох навчання
-batch_size = 64  # Розмір пакета
+embedding_dim = 100  # Розмірність вбудовування слів
+num_epochs = 1  # Кількість епох навчання
+batch_size = 32  # Розмір пакета
 
 
 # Load the data from the CSV file
