@@ -57,9 +57,9 @@ print(f"Training set: {len(train_texts)}")
 print(f"Validation set: {len(test_texts)}")
 
 # Hyperparameters
-max_words = 1000
+max_words = 10000
 embedding_dim = 1000
-num_epochs = 10
+num_epochs = 100
 batch_size = 32
 
 # # Train the sentiment analysis model
@@ -83,13 +83,38 @@ predictions = model.predict(new_data)
 # Convert the predictions to binary labels (0 or 1)
 binary_labels = (predictions > 0.5).astype(int)
 
+
+
 # Print the predicted sentiments for new text reviews
 for i, text  in enumerate(test_texts):
     print(f" i = {i} ")
-    sentiment = "Positive" if binary_labels[i] == 1 else "Negative"
-    print(f"Review: {text}\nSentiment: {sentiment}\nExpected: {test_labels[i]}\n")
+    sentiment = "Positive" if binary_labels[i] == 0 else "Negative"
+    expected = "Positive" if test_labels[i] == 0 else "Negative"
+    print(f"Review: {text}\nSentiment: {sentiment}\nExpected: {test_labels[i]} {expected}\n")
+
+from sklearn.metrics import confusion_matrix, accuracy_score
+# Calculate the confusion matrix
+confusion = confusion_matrix(test_labels, binary_labels)
 
 
+# Extract TP, TN, FP, FN
+TP = confusion[1][1]
+TN = confusion[0][0]
+FP = confusion[0][1]
+FN = confusion[1][0]
+
+# Calculate accuracy
+accuracy = accuracy_score(test_labels, binary_labels)
+
+
+# Print the results
+print("Confusion Matrix:")
+print(confusion)
+print(f"True Positives: {TP}")
+print(f"True Negatives: {TN}")
+print(f"False Positives: {FP}")
+print(f"False Negatives: {FN}")
+print(f"Accuracy: {accuracy}")
 
 
 
