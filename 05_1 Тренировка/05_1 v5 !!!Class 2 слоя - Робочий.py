@@ -3,7 +3,7 @@ import numpy as np
 
 class TwoLayerPerceptron:
     def __init__(self, input_size, hidden_size, output_size, learning_rate=0.1,
-                 epochs=20000):
+                 epochs=100000):
         self.input_size = input_size
         self.hidden_size = hidden_size
         self.output_size = output_size

@@ -18,9 +18,9 @@ class Perceptron:
 
         output_sum = np.dot(self.w_out, hidden_out)
         y = self.activation(output_sum)
-
-        print("\n",f"x: {x}")
-        print(f"y: {y}")
+        #
+        # print("\n",f"x: {x}")
+        # print(f"y: {y}")
 
 
         return y
@@ -38,8 +38,9 @@ answer3 = perceptron.predict(C2[0]) # 0
 answer4 = perceptron.predict(C2[1]) # 0
 
 print(f"{'-'*20}")
-print(f"answer1: {answer1}", f"answer2: {answer2}", sep=" ")
+print(f"{C1[0]} answer1: {answer1}",
+      f"{C1[1]} answer2: {answer2}", sep=" ")
 
-print(f"answer3: {answer3}", f"answer4: {answer4}", sep=" ")
+print(f"{C2[0]} answer3: {answer3}", f"{C2[1]} answer4: {answer4}", sep=" ")
 # print(perceptron.forward(C2[0]), perceptron.forward(C2[1]))
 # print(perceptron.forward(C1[0]), perceptron.forward(C1[1]))

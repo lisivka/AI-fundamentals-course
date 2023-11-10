@@ -24,5 +24,6 @@ def go(C):
 C1 = [(1,0), (0,1)]
 C2 = [(0,0), (1,1)]
 
-print( go(C1[0]), go(C1[1]) )
-print( go(C2[0]), go(C2[1]) )
+
+print(f"C1 {C1[0]} predict {go(C1[0])} C1: {C1[1]} predict {go(C1[1])}")
+print(f"C2 {C2[0]} predict {go(C2[0])} C2: {C2[1]} predict {go(C2[1])}")

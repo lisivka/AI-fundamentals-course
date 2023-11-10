@@ -98,11 +98,17 @@ if __name__ == "__main__":
     # Test the trained model
     test_input = np.array([[0, 0], [0, 1], [1, 0], [1, 1]])
     predictions = model.predict(test_input)
+    # Convert the predictions to binary labels (0 or 1)
+    binary_predictions = [1 if p > 0.5 else 0 for p in predictions]
+
     print("Predictions:")
     for i in range(len(test_input)):
         predicted =float(predictions[i].item())
+        binary_predicted = binary_predictions[i]
         MSE = model.mean_squared_error(y[i], predicted)
-        print(f"Input: {test_input[i]}, Expect: {y[i]} Predictions: {predicted:.3f} , MSE: {MSE:.5f}".format(6))
+        print(f"Input: {test_input[i]}, Expect: {y[i]} "
+              f"Predictions: [{binary_predicted}] ({predicted:.3f} , "
+              f"MSE: {MSE:.5f})".format(6))
     print(f"Weight: {model.weights_input_hidden},"
           f"\n {model.weights_hidden_output.T}")
     # print(f"bias: {model.bias_hidden},")

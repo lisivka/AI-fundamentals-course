@@ -68,6 +68,7 @@ if __name__ == "__main__":
     print("Предсказания:")
     for i in range(len(test_input)):
         MSE = model.mean_squared_error(y[i], predictions[i])
+
         print(f"Вход: {test_input[i]}, Предсказание: {predictions[i]} , MSE: {MSE}")
     print(f"Веса: {model.weights_input_hidden}, {model.weights_hidden_output}")
 

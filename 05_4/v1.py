@@ -34,7 +34,17 @@ def train_sentiment_analysis_model(texts, labels, max_words, embedding_dim, num_
     model.add(Embedding(max_words, embedding_dim, input_length=max_words))
     model.add(Flatten())
     model.add(Dense(1, activation='sigmoid'))
-    model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+    model.compile(optimizer='adam', loss='binary_crossentropy', metrics=[
+        'accuracy',
+        'Precision',
+        'Recall',
+        'TruePositives',
+        'TrueNegatives',
+        'FalsePositives',
+        'FalseNegatives',
+        'F1Score'
+
+    ])
 
     # Train the model
     model.fit(data, labels, epochs=num_epochs, batch_size=batch_size, verbose=0)
