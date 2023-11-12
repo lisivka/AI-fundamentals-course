@@ -170,7 +170,7 @@ def run():
     CITIES = {'A': (0, 0), 'B': (2, 4), 'C': (5, 8), 'D': (9, 1), 'E': (3, 6), 'F': (3, 5), 'G': (4, 7)}
 
     # Set parameters
-    population_size = 100
+    population_size = 150
     generations = 100
     mutation_rate = 0.1
 
