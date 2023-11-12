@@ -18,6 +18,8 @@ outputs = np.array([[0], [1], [1], [0]])
 np.random.seed(0)
 weights_input_hidden = np.random.random((2, 3)) # 2 входа, 3 нейрона в скрытом слое
 weights_hidden_output = np.random.random((3, 1)) # 3 нейрона в скрытом слое, 1 выход
+# print(f"Веса скрытого слоя: \n{weights_input_hidden}")
+# print(f"Веса выходного слоя: \n{weights_hidden_output}")
 
 # Обучение сети
 for _ in range(100000):
