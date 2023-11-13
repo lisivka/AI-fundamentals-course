@@ -130,7 +130,7 @@ def run_clastering(data, selected_features, num_clusters=5):
 
 # Load the dataset
 # file_path = 'features.csv'  # Replace with the actual file path
-file_path = 'housing.csv'  # Replace with the actual file path
+file_path = '../DONE/housing.csv'  # Replace with the actual file path
 data = load_dataset(file_path)
 data = add_category(data)
 

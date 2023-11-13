@@ -1,12 +1,8 @@
-import numpy as np
 import pandas as pd
-import seaborn as sns
-from matplotlib import pyplot as plt
-from sklearn.impute import SimpleImputer
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression, HuberRegressor
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
-from sklearn.preprocessing import OneHotEncoder
+
 
 
 def load_dataset(file_path):
@@ -23,20 +19,6 @@ def load_dataset(file_path):
         pandas.DataFrame: The loaded dataset as a DataFrame.
     """
     dataset = pd.read_csv(file_path)
-
-    return dataset
-
-def add_category(dataset):
-
-    unique_values = dataset['ocean_proximity'].unique()
-    print(unique_values)
-    new_columns = "ocean_category"
-    dataset[new_columns] = 0
-    dataset.loc[dataset['ocean_proximity'] == 'NEAR BAY', new_columns] = 1
-    dataset.loc[dataset['ocean_proximity'] == '<1H OCEAN', new_columns] = 2
-    dataset.loc[dataset['ocean_proximity'] == 'NEAR OCEAN', new_columns] = 3
-    dataset.loc[dataset['ocean_proximity'] == 'INLAND', new_columns] = 4
-    dataset.loc[dataset['ocean_proximity'] == 'ISLAND', new_columns] = 5
     return dataset
 
 def preprocess_data(dataset):
@@ -55,25 +37,15 @@ def preprocess_data(dataset):
             - X (pandas.DataFrame): Preprocessed feature matrix with selected columns.
             - y (pandas.Series): Target values from the 'median_house_value' column.
     """
-
-
     selected_features = [
-        'total_rooms',
-        'total_bedrooms',
-        'longitude',
-        'latitude',
-        'housing_median_age',
-        'population',
-        'households',
-        'median_income',
-        'ocean_category',
-
+        'square_footage',
+        'num_bedrooms',
     ]
     X = dataset[selected_features]
-    y = dataset['median_house_value']
-    # imputer = SimpleImputer(strategy="constant", fill_value=0)
-    imputer = SimpleImputer(strategy='mean')
-    X = imputer.fit_transform(X)
+    y = dataset['price']
+    ## imputer = SimpleImputer(strategy="constant", fill_value=0)
+    # imputer = SimpleImputer(strategy='mean')
+    # X = imputer.fit_transform(X)
 
     return X, y
 
@@ -130,13 +102,10 @@ def evaluate_regression_model(model, X_val, y_val):
     return {'MSE': mse, 'RMSE': rmse, 'MAE': mae, 'R-squared': r_squared}
 
 # Load the dataset
-file_path = 'housing.csv'  # Replace with actual file path
+file_path = '../DONE/House_prices.csv'  # Replace with actual file path
 data = load_dataset(file_path)
-data = add_category(data)
 
-print(data.info() )
-# sns.pairplot(data)
-# plt.show()
+
 
 # Preprocess the data
 X, y = preprocess_data(data)

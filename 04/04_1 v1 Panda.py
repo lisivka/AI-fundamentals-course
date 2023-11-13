@@ -89,7 +89,7 @@ def handle_missing_values(dataset):
 
 
 # Load the dataset
-file_path = 'housing.csv'  # Replace with the actual file path
+file_path = '../DONE/housing.csv'  # Replace with the actual file path
 data = load_dataset(file_path)
 
 # Perform data exploration
