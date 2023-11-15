@@ -1,3 +1,4 @@
+# https://itproger.com/ua/news/izuchenie-python-kivy-v-odnoy-state-osnovi-kivy
 # Импорт всех классов
 from kivy.app import App
 from kivy.uix.label import Label
