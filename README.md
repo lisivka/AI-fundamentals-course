@@ -1,33 +1,42 @@
-pip freeze > requirements.txt
+    pip freeze > requirements.txt
 
-ПЛАН КУРСУ
+    pip install -r requirements.txt
+
+AI FUNDAMENTALS - Course Plan 
 =====================
 Topic	Section / Description
 
-**Introduction to AI (Artificial Intelligence)** Intro and overview 
-ofAI-related topics
+- **00 Introduction to AI (Artificial Intelligence)** 
+    - Intro and overview of AI-related topics
    
-**Search Algorithms**	Solving Search Problems, Depth-First Search, 
-Breadth-First Search, Greedy Best-First Search, Adversarial Search
+- **01 Search Algorithms**	
+  - Solving Search Problems, Depth-First Search, 
+    Breadth-First Search, Greedy Best-First Search, Adversarial Search
 
-**Problems of Optimization**	Local Search, Hill Climbing, Simulated 
-Annealing, Linear Programming, Constraint Satisfaction
+- **02 Problems of Optimization**	
+  - Local Search, Hill Climbing, Simulated 
+  Annealing, Linear Programming, Constraint Satisfaction
 
-**Machine Learning**	Nearest-Neighbor Classification, Perceptron Learning, 
-Support Vector Machines, Regression, Loss Functions, Regularization, Unsupervised Learning, k-means Clustering
+- **03 AI Ethics/Security/Confidence**
+  - Ethics, Security, and Confidence problems in AI-related work
 
-**Neural Networks and their Applications**
-Activation Functions, Neural Network Structure, Gradient Descent, 
-Multilayer Neural Networks, Recurrent Neural Networks
+- **04 Machine Learning**	
+  - Nearest-Neighbor Classification, Perceptron 
+  Learning, 
+  Support Vector Machines, Regression, Loss Functions, Regularization, Unsupervised Learning, k-means Clustering
 
-**Computer Vision** in AI	collection, processing, and analysis of digital 
-images and videos
+- **05 Neural Networks and their Applications**
+  - Activation Functions, Neural Network Structure, Gradient Descent, 
+  Multilayer Neural Networks, Recurrent Neural Networks
 
-**Natural Language Processing**
-Understanding and processing of human language
+- **06 Computer Vision** 
+  - in AI	collection, processing, and analysis of   digital   images and videos
 
-**Genetic Algorithm**
-Solving Knapsack Problem with Genetic Algorithm
+- **07 Natural Language Processing**
+  - Understanding and processing of human language
 
-**AI Ethics/Security/Confidence**
-Ethics, Security, and Confidence problems in AI-related work
+- **08 Genetic Algorithm**
+  - Solving Knapsack Problem with Genetic Algorithm
+---
+in the folder Colab Notebooks you can find all the notebooks from the course
+
