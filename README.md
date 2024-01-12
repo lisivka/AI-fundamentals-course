@@ -2,7 +2,7 @@
 
     pip install -r requirements.txt
 
-AI FUNDAMENTALS - Course Plan 
+AI FUNDAMENTALS - Course Plan 2023 - HOMEWORKS
 =====================
 Topic	Section / Description
 
